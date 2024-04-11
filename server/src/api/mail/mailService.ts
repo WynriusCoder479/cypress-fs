@@ -9,10 +9,10 @@ const resend = new Resend(env.RESEND_API_KEY)
 
 const domain = env.PUBLIC_URL
 
-export const sendMail = {
+export const mailService = {
 	twoFactorTokenEmail: async (email: string, token: string) => {
 		await resend.emails.send({
-			from: 'Cypress <crepress-mail@resed.dev>',
+			from: 'Cypress <crepress-mail@resend.dev>',
 			to: email,
 			subject: '2FA Code',
 			react: TwoFactorCodeTemplate({ token })

@@ -9,6 +9,7 @@ lerna-debug.log*
 
 coverage
 node_modules
+secure
 dist
 build
 dist-ssr

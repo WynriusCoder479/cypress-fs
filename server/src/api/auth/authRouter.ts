@@ -1,17 +1,14 @@
 import express, { Router } from 'express'
 
-import { authService } from '@/api/auth/authService'
-import { handleServiceResponse } from '@/common/utils/httpHandlers'
+import { authController } from '@/api/auth/authController'
+import { auth } from '@/common/middleware/auth'
 
 export const authRouter: Router = (() => {
 	const router = express.Router()
 
-	router.get('/new-verification', async (req, res) => {
-		const token = req.query.token as string
+	router.get('/new-verification', authController.newVerification)
 
-		const serviceResponse = await authService.newVerification(token)
-		handleServiceResponse(serviceResponse, res)
-	})
+	router.post('/enable-2fa', auth, authController.enableTwoFactor)
 
 	return router
 })()

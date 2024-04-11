@@ -1,16 +1,15 @@
 import express, { Router } from 'express'
 
-import { userService } from '@/api/user/userService'
-import { handleServiceResponse } from '@/common/utils/httpHandlers'
+import { userController } from '@/api/user/userController'
 
 export const userRouter: Router = (() => {
 	const router = express.Router()
 
-	router.post('/register', async (req, res) => {
-		const serviceResponse = await userService.register(req.body)
+	router.post('/register', userController.register)
 
-		handleServiceResponse(serviceResponse, res)
-	})
+	router.post('/login', userController.login)
+
+	router.put('/logout', userController.logout)
 
 	return router
 })()

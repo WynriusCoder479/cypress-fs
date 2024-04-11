@@ -170,9 +170,19 @@ export const generateToken = {
 		email: string
 	): Promise<ServiceResponse<TwoFactorToken | null>> => {
 		try {
+			const existingUser = await db.user.findUnique({ where: { email } })
+
+			if (!existingUser)
+				return new ServiceResponse(
+					'Failed',
+					'User not found!',
+					null,
+					StatusCodes.NOT_FOUND
+				)
+
 			const existingToken = await db.twoFactorToken.findFirst({
 				where: {
-					email
+					email: existingUser.email
 				}
 			})
 
@@ -223,9 +233,19 @@ export const generateToken = {
 		email: string
 	): Promise<ServiceResponse<PasswordResetToken | null>> => {
 		try {
+			const existingUser = await db.user.findUnique({ where: { email } })
+
+			if (!existingUser)
+				return new ServiceResponse(
+					'Failed',
+					'User not found!',
+					null,
+					StatusCodes.NOT_FOUND
+				)
+
 			const existingToken = await db.passwordResetToken.findFirst({
 				where: {
-					email
+					email: existingUser.email
 				}
 			})
 
@@ -267,9 +287,19 @@ export const generateToken = {
 		email: string
 	): Promise<ServiceResponse<VerificationToken | null>> => {
 		try {
+			const existingUser = await db.user.findUnique({ where: { email } })
+
+			if (!existingUser)
+				return new ServiceResponse(
+					'Failed',
+					'User not found!',
+					null,
+					StatusCodes.NOT_FOUND
+				)
+
 			const existingToken = await db.verificationToken.findFirst({
 				where: {
-					email
+					email: existingUser.email
 				}
 			})
 
